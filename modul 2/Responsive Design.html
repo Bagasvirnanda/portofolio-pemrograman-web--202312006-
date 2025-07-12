@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Grid Layout</title>
+    <style>
+        /* Main Grid Container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);  /* 3 kolom dengan lebar equal */
+            gap: 10px;                              /* Jarak antar item */
+            padding: 10px;                           /* Padding container */
+            max-width: 1200px;                      /* Lebar maksimum */
+            margin: 0 auto;                          /* Center the grid */
+        }
+
+        /* Grid Items */
+        .grid-item {
+            background-color: #2196F3;               /* Warna biru */
+            color: white;                           /* Warna teks */
+            padding: 20px;                           /* Spacing internal */
+            font-size: 20px;                         /* Ukuran font */
+            text-align: center;                      /* Posisi teks */
+            border-radius: 5px;                      /* Sudut melengkung */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);   /* Shadow halus */
+            transition: transform 0.3s ease;         /* Animasi halus */
+        }
+
+        /* Hover Effects */
+        .grid-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Responsive Breakpoint */
+        @media only screen and (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;          /* Single column on mobile */
+                padding: 10px 5px;                   /* Adjust padding */
+            }
+            
+            .grid-item {
+                padding: 15px;                       /* Smaller padding on mobile */
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item">Item 1</div>
+        <div class="grid-item">Item 2</div>
+        <div class="grid-item">Item 3</div>
+    </div>
+</body>
+</html>

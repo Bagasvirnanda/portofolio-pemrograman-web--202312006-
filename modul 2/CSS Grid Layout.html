@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout Example</title>
+    <style>
+        /* Container Grid Utama */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 100px 200px 100px;  /* Lebar kolom */
+            grid-template-rows: 50px 100px;            /* Tinggi baris */
+            gap: 10px;                                 /* Jarak antar item */
+            background-color: #f2f2f2;                 /* Warna latar */
+            padding: 10px;                            /* Jarak dari tepi */
+            width: fit-content;                        /* Sesuai konten */
+            margin: 0 auto;                            /* Posisi tengah */
+        }
+
+        /* Item Grid */
+        .grid-item {
+            background-color: #4CAF50;                 /* Warna hijau */
+            color: white;                              /* Warna teks */
+            text-align: center;                       /* Posisi teks */
+            padding: 20px;                             /* Jarak dalam */
+            font-size: 18px;                           /* Ukuran font */
+            border-radius: 4px;                        /* Sudut melengkung */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);    /* Bayangan halus */
+        }
+
+        /* Efek hover untuk interaktivitas */
+        .grid-item:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+    </div>
+</body>
+</html>

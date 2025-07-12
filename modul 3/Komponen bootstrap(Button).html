@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Button Styles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .btn-demo {
+      margin: 0.3rem;
+      min-width: 100px;
+    }
+    .section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border-radius: 5px;
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-3">
+  <h1 class="text-center mb-4">Bootstrap Button Styles</h1>
+  
+  <!-- Basic Button Styles -->
+  <div class="section">
+    <h3>1. Basic Button Colors</h3>
+    <button type="button" class="btn btn-demo">Basic</button>
+    <button type="button" class="btn btn-primary btn-demo">Primary</button>
+    <button type="button" class="btn btn-secondary btn-demo">Secondary</button>
+    <button type="button" class="btn btn-success btn-demo">Success</button>
+    <button type="button" class="btn btn-info btn-demo">Info</button>
+    <button type="button" class="btn btn-warning btn-demo">Warning</button>
+    <button type="button" class="btn btn-danger btn-demo">Danger</button>
+    <button type="button" class="btn btn-dark btn-demo">Dark</button>
+    <button type="button" class="btn btn-light btn-demo">Light</button>
+    <button type="button" class="btn btn-link btn-demo">Link</button>
+  </div>
+
+  <!-- Outline Buttons -->
+  <div class="section">
+    <h3>2. Outline Buttons</h3>
+    <button type="button" class="btn btn-outline-primary btn-demo">Primary</button>
+    <button type="button" class="btn btn-outline-secondary btn-demo">Secondary</button>
+    <button type="button" class="btn btn-outline-success btn-demo">Success</button>
+    <button type="button" class="btn btn-outline-info btn-demo">Info</button>
+    <button type="button" class="btn btn-outline-warning btn-demo">Warning</button>
+    <button type="button" class="btn btn-outline-danger btn-demo">Danger</button>
+    <button type="button" class="btn btn-outline-dark btn-demo">Dark</button>
+    <button type="button" class="btn btn-outline-light btn-demo">Light</button>
+  </div>
+
+  <!-- Button Sizes -->
+  <div class="section">
+    <h3>3. Button Sizes</h3>
+    <button type="button" class="btn btn-primary btn-lg btn-demo">Large</button>
+    <button type="button" class="btn btn-primary btn-demo">Default</button>
+    <button type="button" class="btn btn-primary btn-sm btn-demo">Small</button>
+  </div>
+
+  <!-- Disabled Buttons -->
+  <div class="section">
+    <h3>4. Disabled Buttons</h3>
+    <button type="button" class="btn btn-primary btn-demo" disabled>Disabled Primary</button>
+    <button type="button" class="btn btn-outline-secondary btn-demo" disabled>Disabled Outline</button>
+    <button type="button" class="btn btn-link btn-demo" disabled>Disabled Link</button>
+  </div>
+
+  <!-- Button Groups -->
+  <div class="section">
+    <h3>5. Button Groups</h3>
+    <div class="btn-group mb-2">
+      <button type="button" class="btn btn-primary">Left</button>
+      <button type="button" class="btn btn-primary">Middle</button>
+      <button type="button" class="btn btn-primary">Right</button>
+    </div>
+    <div class="btn-group btn-group-lg mb-2">
+      <button type="button" class="btn btn-success">Large</button>
+      <button type="button" class="btn btn-success">Group</button>
+    </div>
+    <div class="btn-group-vertical">
+      <button type="button" class="btn btn-info">Vertical</button>
+      <button type="button" class="btn btn-info">Button</button>
+      <button type="button" class="btn btn-info">Group</button>
+    </div>
+  </div>
+
+  <!-- Block Level Buttons -->
+  <div class="section">
+    <h3>6. Block Level Buttons</h3>
+    <div class="d-grid gap-2">
+      <button type="button" class="btn btn-primary btn-block">Full Width Button</button>
+      <button type="button" class="btn btn-success btn-block">Another Full Width</button>
+    </div>
+  </div>
+
+  <!-- Active State -->
+  <div class="section">
+    <h3>7. Active State</h3>
+    <button type="button" class="btn btn-primary btn-demo active">Active Primary</button>
+    <button type="button" class="btn btn-outline-success btn-demo active">Active Outline</button>
+  </div>
+</div>
+
+</body>
+</html>

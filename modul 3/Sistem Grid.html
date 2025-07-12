@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Latihan Grid 3 Kolom - Warna</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .kolom-biru {
+            background-color: #e0f2f7; /* Warna biru muda */
+            padding: 20px; /* Tambahkan padding agar teks tidak terlalu mepet */
+            border: 1px solid #c7eaf2; /* Border untuk memperjelas batas kolom */
+        }
+        .kolom-hijau {
+            background-color: #e6fae1; /* Warna hijau muda */
+            padding: 20px;
+            border: 1px solid #d4f2cd;
+        }
+        .kolom-kuning {
+            background-color: #fff9e0; /* Warna kuning muda */
+            padding: 20px;
+            border: 1px solid #f2eacb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5"> <h2 class="text-center mb-4">Contoh Layout 3 Kolom dengan Bootstrap Grid</h2>
+        <div class="row">
+            <div class="col-md-4 kolom-biru">
+                <h3>Kolom Pertama</h3>
+                <p>Ini adalah isi dari kolom pertama. Di sini Anda bisa menempatkan berbagai konten seperti teks, gambar, atau elemen lainnya. Contoh ini menggunakan kelas `col-md-4` agar setiap kolom mengambil 4 dari 12 bagian grid Bootstrap pada ukuran layar medium dan lebih besar.</p>
+            </div>
+            <div class="col-md-4 kolom-hijau">
+                <h3>Kolom Kedua</h3>
+                <p>Kolom ini memiliki warna background yang berbeda untuk membedakannya dari kolom lain. Penggunaan kelas `.col-md-4` akan memastikan ketiga kolom ini akan sejajar horizontal pada layar desktop dan tablet. Pada layar yang lebih kecil (misalnya, ponsel), kolom-kolom ini akan otomatis menumpuk secara vertikal.</p>
+            </div>
+            <div class="col-md-4 kolom-kuning">
+                <h3>Kolom Ketiga</h3>
+                <p>Selamat datang di kolom terakhir! Bootstrap Grid sangat fleksibel dan responsif, memungkinkan Anda membuat layout yang menarik dan mudah beradaptasi dengan berbagai ukuran layar. Anda bisa menyesuaikan warna, padding, dan konten sesuai kebutuhan Anda.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

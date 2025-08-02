@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Latihan Perulangan</title>
+</head>
+<body>
+    <h2>Daftar Mata Kuliah</h2>
+    <ul id="daftar-matkul">
+        <!-- Konten akan diisi oleh JavaScript -->
+    </ul>
+
+    <script>
+        // Array of course names
+        var matkul = ["Muhammad", "Bagas", "Virnanda", "M Bagas", "Bagas V"];
+        
+        // Get the unordered list element
+        var daftarElement = document.getElementById("daftar-matkul");
+        
+        // Loop through the array and create list items
+        for (let i = 0; i < matkul.length; i++) {
+            daftarElement.innerHTML += "<li>" + matkul[i] + "</li>";
+        }
+    </script>
+</body>
+</html>

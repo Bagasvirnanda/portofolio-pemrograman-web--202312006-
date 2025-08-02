@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Registrasi dengan Validasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none; /* Sembunyikan pesan error awalnya */
+        }
+        input:invalid {
+            border-color: red;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Registrasi</h2>
+    <form id="registrasiForm">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" name="nama" required
+                   minlength="3" maxlength="50">
+            <small id="nama-error" class="error"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <small id="email-error" class="error"></small>
+        </div>
+        
+        <button type="submit">Daftar</button>
+    </form>
+
+    <script>
+        document.getElementById('registrasiForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah pengiriman form default
+            
+            // Reset pesan error
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+            
+            // Validasi
+            let isValid = true;
+            const nama = document.getElementById('nama');
+            const email = document.getElementById('email');
+            
+            // Validasi Nama
+            if (nama.value.trim() === '') {
+                document.getElementById('nama-error').textContent = 'Nama tidak boleh kosong!';
+                isValid = false;
+            } else if (nama.value.length < 3) {
+                document.getElementById('nama-error').textContent = 'Nama minimal 3 karakter!';
+                isValid = false;
+            }
+            
+            // Validasi Email
+            if (email.value.trim() === '') {
+                document.getElementById('email-error').textContent = 'Email tidak boleh kosong!';
+                isValid = false;
+            } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
+                document.getElementById('email-error').textContent = 'Format email tidak valid!';
+                isValid = false;
+            }
+            
+            // Jika valid, tampilkan alert dan submit form
+            if (isValid) {
+                alert('Registrasi berhasil untuk: ' + nama.value);
+                // this.submit(); // Uncomment untuk benar-benar submit form
+            }
+        });
+    </script>
+</body>
+</html>

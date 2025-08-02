@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Digital Real-Time</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        #jam-container {
+            background-color: #fff;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        #jam {
+            font-size: 4rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #2c3e50;
+            letter-spacing: 3px;
+        }
+        
+        #tanggal {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+        
+        .colon {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div id="jam-container">
+        <h2>Jam Digital Real-Time</h2>
+        <div id="jam"></div>
+        <div id="tanggal"></div>
+    </div>
+
+    <script>
+        function updateJam() {
+            const sekarang = new Date();
+            
+            // Format waktu
+            const jam = sekarang.getHours().toString().padStart(2, '0');
+            const menit = sekarang.getMinutes().toString().padStart(2, '0');
+            const detik = sekarang.getSeconds().toString().padStart(2, '0');
+            
+            // Format tanggal
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const tanggalString = sekarang.toLocaleDateString('id-ID', options);
+            
+            // Tampilkan waktu dengan efek animasi colon
+            document.getElementById("jam").innerHTML = 
+                `${jam}<span class="colon">:</span>${menit}<span class="colon">:</span>${detik}`;
+            
+            // Tampilkan tanggal
+            document.getElementById("tanggal").textContent = tanggalString;
+        }
+        
+        function jalankanJam() {
+            // Update jam segera saat pertama kali dijalankan
+            updateJam();
+            
+            // Kemudian update setiap detik
+            setInterval(updateJam, 1000);
+        }
+        
+        // Jalankan jam saat halaman selesai dimuat
+        window.addEventListener('load', jalankanJam);
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Nama</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #inputNama {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #hasilAnalisis {
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .value {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h2>Analisis Nama</h2>
+    <div class="input-container">
+        <input type="text" id="inputNama" placeholder="Masukkan nama Anda">
+        <button onclick="analisisNama()">Analisis</button>
+    </div>
+    <div id="hasilAnalisis"></div>
+
+    <script>
+        function analisisNama() {
+            const namaInput = document.getElementById("inputNama");
+            const nama = namaInput.value.trim();
+            const hasilElement = document.getElementById("hasilAnalisis");
+            
+            // Validasi input kosong
+            if (nama === "") {
+                hasilElement.innerHTML = '<div style="color: #e74c3c;">Silakan masukkan nama terlebih dahulu!</div>';
+                return;
+            }
+            
+            // Membersihkan hasil sebelumnya
+            hasilElement.innerHTML = '';
+            
+            // Fungsi untuk membuat elemen info
+            const tambahInfo = (label, value) => {
+                const div = document.createElement('div');
+                div.className = 'info-item';
+                div.innerHTML = `<span class="label">${label}:</span> <span class="value">${value}</span>`;
+                hasilElement.appendChild(div);
+            };
+            
+            // Analisis nama
+            tambahInfo('Nama asli', nama);
+            tambahInfo('Nama dalam huruf kapital', nama.toUpperCase());
+            tambahInfo('Nama dalam huruf kecil', nama.toLowerCase());
+            tambahInfo('Jumlah karakter', `${nama.length} karakter`);
+            tambahInfo('3 karakter pertama', nama.substring(0, 3));
+            tambahInfo('3 karakter terakhir', nama.substring(nama.length - 3));
+            tambahInfo('Karakter pertama', nama.charAt(0));
+            tambahInfo('Karakter terakhir', nama.charAt(nama.length - 1));
+            
+            // Tambahkan fitur reverse name
+            const reversedName = nama.split('').reverse().join('');
+            tambahInfo('Nama terbalik', reversedName);
+            
+            // Tambahkan fitur inisial
+            if (nama.includes(' ')) {
+                const inisial = nama.split(' ').map(word => word.charAt(0)).join('');
+                tambahInfo('Inisial', inisial.toUpperCase());
+            }
+            
+            // Fokus kembali ke input
+            namaInput.focus();
+        }
+        
+        // Tambahkan event listener untuk tombol Enter
+        document.getElementById("inputNama").addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analisisNama();
+            }
+        });
+    </script>
+</body>
+</html>

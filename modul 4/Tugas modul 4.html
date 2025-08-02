@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Elektronik Cepat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .product-display {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        .product-list {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        .product-item {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .product-item:hover {
+            background-color: #f1f1f1;
+        }
+        .product-item.active {
+            background-color: #e7f1ff;
+            border-left: 4px solid #0d6efd;
+        }
+        .slideshow-img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .order-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        .receipt {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        .colon {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header text-center">
+        <h1>Toko Elektronik Cepat</h1>
+        <div id="current-time"></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Display Produk Utama -->
+            <div class="col-md-8">
+                <div class="product-display">
+                    <div class="text-center mb-4">
+                        <img id="slideshow-image" class="slideshow-img" src="" alt="Produk">
+                        <div class="d-flex justify-content-center mb-3">
+                            <button class="btn btn-outline-primary me-2" onclick="gantiGambar(-1)">Previous</button>
+                            <button class="btn btn-outline-primary" onclick="gantiGambar(1)">Next</button>
+                        </div>
+                        <h3 id="product-name"></h3>
+                        <h4 id="product-price" class="text-success"></h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daftar Produk -->
+            <div class="col-md-4">
+                <div class="product-list">
+                    <h4 class="mb-4">Daftar Produk</h4>
+                    <div id="product-list-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Pemesanan -->
+        <div class="order-form">
+            <h4 class="mb-4">Form Pemesanan</h4>
+            <form id="order-form">
+                <div class="mb-3">
+                    <label for="customer-name" class="form-label">Nama Pemesan</label>
+                    <input type="text" class="form-control" id="customer-name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Jumlah Pesan</label>
+                    <input type="number" class="form-control" id="quantity" min="1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="promo-code" class="form-label">Kode Promo (opsional)</label>
+                    <input type="text" class="form-control" id="promo-code">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="prosesPesanan()">Pesan Sekarang</button>
+            </form>
+
+            <!-- Struk Pesanan -->
+            <div id="receipt" class="receipt">
+                <h4 class="mb-3">Struk Pesanan</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Order ID:</strong> <span id="order-id"></span></p>
+                        <p><strong>Nama Pemesan:</strong> <span id="receipt-customer-name"></span></p>
+                        <p><strong>Produk:</strong> <span id="receipt-product-name"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Jumlah:</strong> <span id="receipt-quantity"></span></p>
+                        <p><strong>Subtotal:</strong> <span id="receipt-subtotal"></span></p>
+                        <p><strong>Potongan:</strong> <span id="receipt-discount"></span></p>
+                        <p><strong>Total Akhir:</strong> <span id="receipt-total"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Produk
+        const products = [
+            {
+                name: "Smartphone X Pro",
+                price: 8999000,
+                images: [
+                    "http://www.canal-la.com/Noticias/Images/apple080118.JPG",
+                    "https://ihouse.mn/wp-content/uploads/2021/05/iphone-12-purple-select-2021.png",
+                    "https://images.macrumors.com/t/gwVhUOgL77RLG4cCJqxwAoYcVeY=/2500x/article-new/2023/12/iPhone-16-Pro-Sizes-Feature.jpg"
+                ]
+            },
+            {
+                name: "Laptop Ultra Slim",
+                price: 12499000,
+                images: [
+                    "https://dlcdnwebimgs.asus.com/gain/39E67767-AA86-46FC-BC54-6025F73EC823",
+                    "https://i.dell.com/sites/csimages/Product_Imagery/all/fp-aw-laptops-hero-a-1920x1440-v2.png"
+                ]
+            },
+            {
+                name: "Smart TV 720 inch",
+                price: 7599000,
+                images: [
+                    "http://www.compraderas.com.bo/wp-content/uploads/2017/09/lg_tv_smart_55uj6580_uhd.jpg",
+                    "https://polytron.co.id/wp-content/uploads/2021/09/YW50aWtvZGVfXzE2MzA0NjY5NThfbWFpbi1pbWFnZS00ay11djU5MjAtanBn11-1-1024x910.jpg",
+                    "https://www.atlasfernsehdienst.de/wp-content/uploads/2024/05/TV-65Z95AEG_1.jpg"
+                ]
+            }
+        ];
+
+        // Variabel Global
+        let currentProductIndex = 0;
+        let currentImageIndex = 0;
+        const imageElement = document.getElementById("slideshow-image");
+        const productNameElement = document.getElementById("product-name");
+        const productPriceElement = document.getElementById("product-price");
+        const productListContainer = document.getElementById("product-list-container");
+        const currentTimeElement = document.getElementById("current-time");
+
+        // Fungsi untuk menampilkan waktu saat ini
+        function updateCurrentTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const timeString = now.toLocaleDateString('id-ID', options);
+            currentTimeElement.innerHTML = timeString.replace(/(\d{2}):(\d{2}):(\d{2})/, 
+                `$1<span class="colon">:</span>$2<span class="colon">:</span>$3`);
+        }
+
+        // Fungsi untuk menampilkan produk
+        function tampilkanProduk(index) {
+            currentProductIndex = index;
+            currentImageIndex = 0;
+            updateProductDisplay();
+            updateProductList();
+        }
+
+        // Fungsi untuk update tampilan produk
+        function updateProductDisplay() {
+            const product = products[currentProductIndex];
+            imageElement.src = product.images[currentImageIndex];
+            imageElement.alt = product.name;
+            productNameElement.textContent = product.name;
+            productPriceElement.textContent = `Rp ${product.price.toLocaleString('id-ID')}`;
+        }
+
+        // Fungsi untuk ganti gambar
+        function gantiGambar(arah) {
+            const product = products[currentProductIndex];
+            currentImageIndex += arah;
+            
+            if (currentImageIndex >= product.images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = product.images.length - 1;
+            }
+            
+            updateProductDisplay();
+        }
+
+        // Fungsi untuk menampilkan daftar produk
+        function updateProductList() {
+            productListContainer.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const productItem = document.createElement('div');
+                productItem.className = `product-item ${index === currentProductIndex ? 'active' : ''}`;
+                productItem.innerHTML = `
+                    <h5>${product.name}</h5>
+                    <p class="text-success">Rp ${product.price.toLocaleString('id-ID')}</p>
+                `;
+                productItem.addEventListener('click', () => tampilkanProduk(index));
+                productListContainer.appendChild(productItem);
+            });
+        }
+
+        // Fungsi untuk memproses pesanan
+        function prosesPesanan() {
+            // Validasi form
+            const customerName = document.getElementById("customer-name").value.trim();
+            const quantity = parseInt(document.getElementById("quantity").value);
+            const promoCode = document.getElementById("promo-code").value.trim();
+            
+            if (!customerName || isNaN(quantity) || quantity <= 0) {
+                alert("Harap isi nama pemesan dan jumlah pesan dengan benar!");
+                return;
+            }
+            
+            // Hitung total
+            const product = products[currentProductIndex];
+            const subtotal = product.price * quantity;
+            
+            // Cek promo code
+            let discount = 0;
+            if (promoCode.toUpperCase() === "DISKON10") {
+                discount = subtotal * 0.1;
+            }
+            
+            const total = subtotal - discount;
+            
+            // Generate order ID
+            const orderId = "INV-" + Math.floor(10000 + Math.random() * 90000);
+            
+            // Tampilkan struk
+            document.getElementById("order-id").textContent = orderId;
+            document.getElementById("receipt-customer-name").textContent = customerName;
+            document.getElementById("receipt-product-name").textContent = product.name;
+            document.getElementById("receipt-quantity").textContent = quantity;
+            document.getElementById("receipt-subtotal").textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById("receipt-discount").textContent = `Rp ${discount.toLocaleString('id-ID')}`;
+            document.getElementById("receipt-total").textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            
+            document.getElementById("receipt").style.display = "block";
+        }
+
+        // Inisialisasi
+        window.onload = function() {
+            // Update waktu setiap detik
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            
+            // Tampilkan produk pertama
+            tampilkanProduk(0);
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

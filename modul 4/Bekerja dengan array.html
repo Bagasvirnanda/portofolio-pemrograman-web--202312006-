@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        #input-todo {
+            padding: 8px;
+            width: 70%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        .hapus-btn {
+            background-color: #f44336;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .hapus-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h2>To-Do List Sederhana</h2>
+    <div>
+        <input type="text" id="input-todo" placeholder="Ketik tugas baru...">
+        <button onclick="tambahTugas()">Tambah</button>
+    </div>
+    <ul id="daftar-tugas"></ul>
+
+    <script>
+        // Array untuk menyimpan daftar tugas
+        const tugas = [];
+        
+        // Fungsi untuk menambahkan tugas baru
+        function tambahTugas() {
+            const inputElement = document.getElementById("input-todo");
+            const tugasBaru = inputElement.value.trim();
+            
+            if (tugasBaru === "") {
+                alert("Masukkan tugas terlebih dahulu!");
+                return;
+            }
+            
+            tugas.push(tugasBaru);
+            inputElement.value = "";
+            tampilkanDaftar();
+        }
+        
+        // Fungsi untuk menghapus tugas
+        function hapusTugas(index) {
+            tugas.splice(index, 1);
+            tampilkanDaftar();
+        }
+        
+        // Fungsi untuk menampilkan daftar tugas
+        function tampilkanDaftar() {
+            const daftarElement = document.getElementById("daftar-tugas");
+            daftarElement.innerHTML = "";
+            
+            tugas.forEach((item, index) => {
+                const liElement = document.createElement("li");
+                
+                // Tambahkan teks tugas
+                const tugasText = document.createElement("span");
+                tugasText.textContent = item;
+                
+                // Tambahkan tombol hapus
+                const hapusButton = document.createElement("button");
+                hapusButton.textContent = "Hapus";
+                hapusButton.className = "hapus-btn";
+                hapusButton.onclick = () => hapusTugas(index);
+                
+                // Gabungkan elemen
+                liElement.appendChild(tugasText);
+                liElement.appendChild(hapusButton);
+                daftarElement.appendChild(liElement);
+            });
+        }
+    </script>
+</body>
+</html>
